@@ -1,0 +1,84 @@
+{
+  "id": "./",
+  "name": "ConjuguonsEco",
+  "short_name": "ConjuguonsEco",
+  "description": "Jeu de conjugaison en français autour de la biodiversité d’Haïti",
+  "lang": "fr",
+  "dir": "ltr",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": [
+    "fullscreen",
+    "standalone",
+    "minimal-ui"
+  ],
+  "background_color": "#f6f4ee",
+  "theme_color": "#2e9e3f",
+  "categories": [
+    "education",
+    "games"
+  ],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "orientation": "portrait-primary",
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
+  "handle_links": "preferred",
+  "screenshots": [
+    {
+      "src": "screenshots/ecran-1.png",
+      "sizes": "540x960",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Écran titre"
+    },
+    {
+      "src": "screenshots/ecran-2.png",
+      "sizes": "540x960",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Accueil"
+    },
+    {
+      "src": "screenshots/ecran-3.png",
+      "sizes": "540x960",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Exercice avec le clavier du jeu"
+    },
+    {
+      "src": "screenshots/ecran-large.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Accueil sur grand écran"
+    }
+  ]
+}
