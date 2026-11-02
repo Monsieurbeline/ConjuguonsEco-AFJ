@@ -125,7 +125,7 @@ function fmtUI(){if(!G||G.n>=G.bl.length)return;const n=G.n,f=G.cf=fmtFor(n),b=d
  if(!tap){box.innerHTML='';if(f=='dictee'&&G.sp!==n){G.sp=n;setMsg('Écoute la phrase, puis écris le verbe.');setTimeout(sayItem,400)}setTimeout(()=>{try{inp.focus()}catch(e){}},60);return}
  if(f=='order')return renderOrder();if(f=='assoc')return renderAssoc();
  const o=optList(n),lab=f=='qcm'?'Touche la bonne forme':G.cp==0?'1. Choisis l’auxiliaire':'2. Choisis le participe passé';
- box.innerHTML=`<div class="fl">${lab}</div><div class="fo2" role="group" aria-label="${lab}">`+o.map(x=>`<button type="button" class="btn w opt" data-v="${qa(x)}">${esc(x)}</button>`).join('')+'</div>';
+ box.innerHTML=`<div class="fl">${lab}</div><div class="fo2" role="group" aria-label="${lab}">`+o.map((x,i)=>`<button type="button" class="btn w opt" data-v="${qa(x)}" data-n="${i+1}">${esc(x)}</button>`).join('')+'</div>';
  box.querySelectorAll('.opt').forEach(btn=>{btn.onclick=()=>tapOpt(btn.dataset.v,btn);if(G.dis&&G.dis.includes(btn.dataset.v)){btn.disabled=true;btn.classList.add('bad')}})}
 function optTarget(){const a=G.bl[G.n][0];if(G.cf=='qcm')return a;const p=a.split(' ');return G.cp==0?p[0]:p[1]}
 function tapOpt(val,btn){if(G.lock||G.pend||btn.disabled)return;sfx.tick();vib(8);const f=G.cf,a=G.bl[G.n][0];
@@ -142,7 +142,7 @@ function renderOrder(){const n=G.n,box=$('#fopts');
  box.innerHTML=`<div class="fl">Remets la phrase dans l’ordre</div><div class="chips ordl" id="ordl" aria-label="Ta phrase">${O.put.map((x,k)=>`<button type="button" class="chip" data-p="${k}" data-id="${x.i}">${esc(x.t)}</button>`).join('')||'<span class="small">Touche les mots dans l’ordre…</span>'}</div><div class="chips">${O.pool.map((x,k)=>`<button type="button" class="chip" data-q="${k}" data-id="${x.i}">${esc(x.t)}</button>`).join('')}</div>`;
  box.querySelectorAll('[data-q]').forEach(c=>c.onclick=()=>{if(G.lock||G.pend)return;sfx.tick();O.put.push(O.pool.splice(+c.dataset.q,1)[0]);renderOrder();if(!O.pool.length)ordCheck()});
  box.querySelectorAll('[data-p]').forEach(c=>c.onclick=()=>{if(G.lock||G.pend)return;O.pool.push(O.put.splice(+c.dataset.p,1)[0]);renderOrder()});
- if(FXOK())box.querySelectorAll('.chip').forEach(c=>{const o=old[c.dataset.id];if(!o)return;const n=c.getBoundingClientRect(),dx=o.left-n.left,dy=o.top-n.top;if(dx||dy)c.animate([{transform:`translate(${dx}px,${dy}px)`},{transform:'none'}],{duration:280,easing:'cubic-bezier(.2,.9,.3,1.15)'})})}
+ if(FXOK())box.querySelectorAll('.chip').forEach(c=>{const o=old[c.dataset.id];if(!o)return;const n=c.getBoundingClientRect(),dx=o.left-n.left,dy=o.top-n.top;if(dx||dy)c.animate([{transform:`translate(${dx}px,${dy}px)`},{transform:'none'}],{duration:280,easing:'cubic-bezier(.2,.9,.3,1.15)'})});orderDnD(box)}
 function ordCheck(){const O=G.ord,ok=O.put.every((x,i)=>nz(x.t)===nz(O.toks[i]));
  if(ok)return check(G.bl[G.n][0],null);
 const ol=$('#ordl');if(ol){ol.classList.add('shk');setTimeout(()=>ol.classList.remove('shk'),400)}
@@ -153,7 +153,7 @@ function orderHint(){const O=G.ord;if(!O)return;const k=O.put.length,nx=O.pool.f
 function renderAssoc(){const n=G.n,box=$('#fopts');
  if(!G.asc||G.asc.n!=n)G.asc={n,L:[0,1,2,3].map(i=>({j:n+i,lab:assocLabel(n+i),form:G.bl[n+i][0],done:false})),R:shuf([0,1,2,3]),sel:null,mist:0,ret:{}};
  const A=G.asc;
- box.innerHTML=`<div class="fl">Associe chaque début de phrase à la bonne forme</div><div class="as2"><div>${A.L.map((x,i)=>`<button type="button" class="btn w as ${x.done?'done':''} ${A.sel===i?'on':''}" data-l="${i}" ${x.done?'disabled':''}>${esc(x.lab)}</button>`).join('')}</div><div>${A.R.map(i=>`<button type="button" class="btn w as ${A.L[i].done?'done':''}" data-r="${i}" ${A.L[i].done?'disabled':''}>${esc(A.L[i].form)}</button>`).join('')}</div></div>`;
+ box.innerHTML=`<div class="fl">Associe chaque début de phrase à la bonne forme</div><div class="as2"><div>${A.L.map((x,i)=>`<button type="button" class="btn w as ${x.done?'done':''} ${A.sel===i?'on':''}" data-n="${i+1}" data-l="${i}" ${x.done?'disabled':''}>${esc(x.lab)}</button>`).join('')}</div><div>${A.R.map((i,p)=>`<button type="button" class="btn w as ${A.L[i].done?'done':''}" data-n="${'ABCD'[p]}" data-r="${i}" ${A.L[i].done?'disabled':''}>${esc(A.L[i].form)}</button>`).join('')}</div></div>`;
  box.querySelectorAll('[data-l]').forEach(c=>c.onclick=()=>{if(G.lock||G.pend)return;A.sel=+c.dataset.l;renderAssoc()});
  box.querySelectorAll('[data-r]').forEach(c=>c.onclick=()=>{if(G.lock||G.pend||A.sel==null)return;assocTry(A.sel,+c.dataset.r)})}
 function assocTry(l,r){const A=G.asc;
