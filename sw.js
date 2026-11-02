@@ -1,6 +1,6 @@
 /* ConjuguonsEco : service worker.
    Changer V à chaque mise en ligne pour que les appareils se mettent à jour. */
-const V = 'conjuguonseco-v27';
+const V = 'conjuguonseco-v28';
 
 /* Indispensable : si l'un de ces fichiers manque,
    l'installation échoue et l'ancienne version reste active. */
