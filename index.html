@@ -366,6 +366,26 @@ body.fxs .map .node .c,body.fxs .cn .cim{transform:scale(var(--sc,1));transition
 .plx{position:fixed;z-index:0;pointer-events:none;height:auto;will-change:transform;opacity:.95}
 .trail{position:absolute;left:0;top:0;pointer-events:none;z-index:0;overflow:visible}.tr0,.tr1{fill:none;stroke-linecap:round;stroke-dasharray:2 15}.tr0{stroke:#ffffffb0;stroke-width:6}.tr1{stroke:#ffc928;stroke-width:8;filter:drop-shadow(0 0 4px #ffc928aa)}
 .rdp{position:fixed;left:0;top:0;height:6px;width:0;z-index:70;background:linear-gradient(90deg,#43a51c,#ffc928);border-radius:0 3px 3px 0;box-shadow:0 0 0 1px #fff,0 2px 6px #0004}
+/* v28 : souris et clavier (PC, Chromebook) */
+@keyframes wob{25%{transform:rotate(-8deg) scale(1.08)}60%{transform:rotate(6deg) scale(1.08)}}
+.chip.dragg{box-shadow:0 12px 24px #0005;cursor:grabbing}
+@media (hover:hover) and (pointer:fine){
+html:not(.nocur) body{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M4 3v21l6-5.2 4 9 4.6-2-4-8.6H22z' fill='%2343a51c' stroke='white' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E") 4 3,auto}
+html:not(.nocur) :is(button,a,[role=button],[role=switch],summary,.node,.lvl,.cn,.tg,label):not(:disabled){cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M4 3v21l6-5.2 4 9 4.6-2-4-8.6H22z' fill='%23f47b20' stroke='white' stroke-width='2' stroke-linejoin='round'/%3E%3Ccircle cx='24' cy='7' r='3.2' fill='%23ffc928' stroke='white' stroke-width='1.5'/%3E%3C/svg%3E") 4 3,pointer}
+html:not(.nocur) :is(input,textarea){cursor:text}
+.btn,.node,.lvl,.cn,.opt,.chip,.tb,.rb,.bd,.dm,.daily,.kbd button,#tabs button,.lt,.tg{transition:transform var(--t-fast) var(--e-soft),box-shadow var(--t-fast),filter var(--t-fast)}
+.btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 0 #0002,0 12px 22px #0003}.btn:active:not(:disabled){transform:translateY(1px)}
+.node:hover,.lvl:hover,.dm:hover,.daily:hover,.cn:hover:not(:disabled){transform:translateY(-4px) scale(1.015);box-shadow:0 16px 30px #0003}
+.node:hover .c{filter:brightness(1.12)}.lvl:hover{filter:brightness(1.06)}
+.opt:hover:not(:disabled),.as:hover:not(:disabled){transform:translateY(-3px) scale(1.02)}.chip{cursor:grab}.chip:hover{transform:translateY(-3px)}
+.tb:hover,.rb:hover{transform:translateY(-2px) scale(1.08)}.bd:hover:not(.off){animation:wob .5s}
+.kbd button:hover{filter:brightness(1.08);transform:translateY(-2px)}#tabs button:hover{transform:translateX(4px);filter:brightness(1.1)}.tg:hover{filter:brightness(1.08)}
+[data-tip]{position:relative}
+[data-tip]:hover::after{content:attr(data-tip);position:absolute;left:50%;top:calc(100% + 8px);transform:translateX(-50%);white-space:nowrap;background:#25401a;color:#fff;font:700 13px/1 Poppins,sans-serif;padding:7px 10px;border-radius:9px;box-shadow:0 6px 16px #0004;z-index:80;pointer-events:none;animation:popIn var(--t-fast) both}
+#bar [data-tip]:hover::after{top:auto;bottom:calc(100% + 8px)}
+.fo2 .opt,.as2 .as{position:relative}.fo2 .opt[data-n]::before,.as2 .as[data-n]::before{content:attr(data-n);position:absolute;left:8px;top:50%;transform:translateY(-50%);width:22px;height:22px;border-radius:7px;background:#25401a18;color:var(--gd);font-size:12px;font-weight:900;display:grid;place-items:center}
+body.side .tbub{left:124px}
+}
 .small{font-size:14px;color:var(--mut)}
 
 /* v15 : image à côté du texte dans les cartes de niveau */
