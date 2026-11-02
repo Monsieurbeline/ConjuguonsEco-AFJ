@@ -1,5 +1,5 @@
 /* état et réglages */
-const DEF={music:true,sfx:true,fsc:true,fs:1,dys:false,hc:false,rm:!!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches),nt:false,vox:true,qb:false,lite:!!((navigator.deviceMemory&&navigator.deviceMemory<=2)||(navigator.hardwareConcurrency&&navigator.hardwareConcurrency<=2))};
+const DEF={music:true,sfx:true,fsc:true,fs:1,dys:false,hc:false,rm:!!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches),nt:false,vox:true,qb:false,cur:true,lite:!!((navigator.deviceMemory&&navigator.deviceMemory<=2)||(navigator.hardwareConcurrency&&navigator.hardwareConcurrency<=2)||(/CrOS/.test(navigator.userAgent)&&(navigator.deviceMemory||4)<=4))};
 let S={done:{},photo:null,name:'',xp:0,coins:0,streak:0,last:'',badges:[],daily:{},days:{},td:null,verbs:0,err:{},qbest:0,sr:{},freeze:0,set:{},vs:{},kinds:{}};
 try{Object.assign(S,JSON.parse(localStorage.getItem(KEY)||'{}'))}catch(e){}
 S.set=Object.assign({},DEF,S.set);if(S.mute){S.set.sfx=S.set.music=false;delete S.mute}S.err=S.err||{};S.sr=S.sr||{};S.freeze=S.freeze||0;
@@ -11,7 +11,7 @@ function migrateOrder(){if((S.ver||0)>=25)return;const sw=k=>k=='1'?'2':k=='2'?'
  S.ver=25}
 migrateOrder();
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
-function applySet(){const r=document.documentElement,t=S.set;r.style.setProperty('--fs',[.92,1,1.22][t.fs]);r.classList.toggle('dys',t.dys);r.classList.toggle('hc',t.hc);r.classList.toggle('rm',t.rm);r.classList.toggle('lite',!!t.lite)}
+function applySet(){const r=document.documentElement,t=S.set;r.style.setProperty('--fs',[.92,1,1.22][t.fs]);r.classList.toggle('dys',t.dys);r.classList.toggle('hc',t.hc);r.classList.toggle('rm',t.rm);r.classList.toggle('lite',!!t.lite);r.classList.toggle('nocur',t.cur===false)}
 const ic=(n,c='')=>`<svg class="ic ${c}" aria-hidden="true" focusable="false"><use href="#i-${n}"/></svg>`;
 const esc=t=>t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 const norm=t=>t.toLowerCase().replace(/[’‘`´]/g,"'").replace(/\s+/g,' ').replace(/[.!,;:]+$/,'').trim();
